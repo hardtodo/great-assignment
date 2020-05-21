@@ -1,9 +1,11 @@
+import { Route } from '@angular/compiler/src/core';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../user-management-component/user';
+import { Router } from '@angular/router';
 
 function usernameValidator(control:FormControl):{[s:string]:boolean}
 {
@@ -31,7 +33,7 @@ export class LoginComponentComponent implements OnInit {
 
   currentUser:User;
   
-  constructor(private authService:AuthService,private fb:FormBuilder,private httpClient:HttpClient) {
+  constructor(private authService:AuthService,private fb:FormBuilder,private httpClient:HttpClient,private router:Router) {
     this.myForm=this.fb.group({
       'username':['',Validators.compose([Validators.required,usernameValidator])],
       'password':['',Validators.compose([Validators.required,Validators.minLength(5)])]
@@ -42,6 +44,7 @@ export class LoginComponentComponent implements OnInit {
     this.username.valueChanges.subscribe(val=>{
       console.log(val);
     });
+  
   }
 
   ngOnInit(): void {
@@ -52,6 +55,7 @@ export class LoginComponentComponent implements OnInit {
       (val: any) => {
         if (val.succ) {
           console.log('连接成功 ');
+          this.router.navigate(['/management']);
           this.authService.login();
           this.myForm.valid;
         }
