@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center login-centent">
         <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)"><!--关联表单和ts中变量-->
             <h3 class="d-flex justify-content-center">用户登录</h3>
-            <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
+            
         <p *ngIf="myForm.invalid" class="text-danger">表单无效！</p>
         <!-- <p>{{name$|async}}</p> -->
         <div class="form-group">
@@ -36,6 +36,12 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block" 
         [disabled]="myForm.invalid" (click)='login()'>提交</button>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <p>默认账户：admin</p>
+                <p>默认密码：123456</p>
+            </a>
+        </nav>
     </form>
     </div>
 </div>
